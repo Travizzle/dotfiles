@@ -26,7 +26,7 @@ let g:netrw_banner=0 "No header spam in directory mode
 
 let g:netrw_liststyle=3 "Tree style
 
-:set shell=/usr/bin/bash
+set shell=/usr/bin/bash
 
 " Copy yank buffer to system clipboard
 " Use OSC52 to put things into the system clipboard, works over SSH!
