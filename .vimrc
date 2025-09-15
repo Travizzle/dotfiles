@@ -38,3 +38,43 @@ set shell=/usr/bin/bash
 "
 " nnoremap <leader>y :call Osc52Yank()<CR>
 
+" Undo history
+set undodir=~/.vim/undodir
+set undofile
+
+" -----------------------------
+" Jekyll-friendly 80-column enforcement
+" -----------------------------
+
+" --- Python and other code files ---
+" Enforce hard 80-column line limit
+autocmd FileType python,ruby,c,cpp,java,html,css,javascript setlocal textwidth=80
+
+" Autobreak lines at 80 characters if textwidth is set
+autocmd FileType python,ruby,c,cpp,java,html,css,javascript setlocal formatoptions+=t
+
+" Optional: show a visual guideline at column 81
+autocmd FileType python,ruby,c,cpp,java,html,css,javascript setlocal colorcolumn=81
+
+" --- Markdown files ---
+" Wrap at 100 characters, soft wrap only (avoid breaking links)
+autocmd FileType markdown setlocal textwidth=0 wrap linebreak
+" Optional: highlight 80-character guideline
+autocmd FileType markdown setlocal colorcolumn=81
+
+" --- YAML files (front matter) ---
+" Soft wrap only, do not insert hard line breaks
+autocmd FileType yaml setlocal wrap linebreak textwidth=0
+
+" --- Safety: do not auto-wrap unknown/system file ---
+" For any other filetype, do not set textwidth
+autocmd BufRead,BufNewFile * if &filetype == '' | setlocal textwidth=0 | endif
+
+" --- Optional: helper mapping for Markdown reference links ---
+" Automatically insert a reference-style link template
+" Usage: type <Leader>rl in insert mode to start a reference link
+" Default Leader key is '\'
+inoremap <Leader>rl [][]<Esc>F[a
+
+" Shortcut to apply Jekyll-friendly column enforcement to entire file
+nnoremap <Leader>gf ggVGgq
